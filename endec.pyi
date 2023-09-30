@@ -1,0 +1,6 @@
+def encode(
+    input_str: str, encoding: str = "utf-8", errors: str = "strict"
+) -> bytes: ...
+def decode(
+    input_bytes: bytes, encoding: str = "utf-8", errors: str = "strict"
+) -> str: ...

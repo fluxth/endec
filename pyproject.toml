@@ -1,0 +1,38 @@
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "endec"
+version = "0.1.0a1"
+description = "Web-friendly encoding and decoding library"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Thitat Auareesuksakul", email = "thitat@flux.ci" }]
+keywords = ["encoding_rs", "web", "codec"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+repository = "https://github.com/fluxth/endec"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
