@@ -19,8 +19,8 @@ jobs:
         python-version: ["3.12", "3.11", "3.10", "3.9", "3.8"]
 
     steps:
-      - uses: actions/checkout@v4.1.0
-      - uses: actions/setup-python@v4.7.0
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+      - uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
         with:
           python-version: "${{ matrix.python-version }}"
           allow-prereleases: true
