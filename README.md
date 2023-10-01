@@ -1,5 +1,10 @@
 # endec
 
+![PyPI - Version](https://img.shields.io/pypi/v/endec)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/endec)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fluxth/endec/build.yml)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fluxth/endec/test.yml?label=tests)
+
 Web-friendly **en**coding and **dec**oding library.
 
 **endec** uses [`encoding_rs`](https://github.com/hsivonen/encoding_rs) (which powers Firefox) under the hood.
