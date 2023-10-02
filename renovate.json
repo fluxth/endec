@@ -11,8 +11,17 @@
 
   "packageRules": [
     {
+      "description": "Pin Cargo packages",
       "matchManagers": ["cargo"],
       "rangeStrategy": "pin"
+    },
+    {
+      "description": "Auto-merge GitHub Actions patch and digest updates",
+      "matchUpdateTypes": ["patch", "digest"],
+      "matchManagers": ["github-actions"],
+      "schedule": ["before 6am"],
+      "automerge": true,
+      "automergeType": "pr"
     }
   ]
 }
