@@ -32,7 +32,7 @@ assert utf8_bytes == b"\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\
 iso2022jp_bytes = endec.encode("㊤㊥㊦", "iso-2022-jp")
 assert iso2022jp_bytes == b"\x1b$B-e-f-g\x1b(B"
 
-"㊤㊥㊦".encode('iso-2022-jp')  # Standard Library `encode`
+"㊤㊥㊦".encode("iso-2022-jp")  # Standard Library `encode`
 # UnicodeEncodeError: 'iso2022_jp' codec can't encode character '\u32a4' in position 0: illegal multibyte sequence
 ```
 
@@ -41,7 +41,7 @@ assert iso2022jp_bytes == b"\x1b$B-e-f-g\x1b(B"
 ```python
 import endec
 
-utf8_str = endec.decode(b'\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf')
+utf8_str = endec.decode(b"\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf")
 assert utf8_str == "こんにちは"
 
 iso2022jp_str = endec.decode(b"\x1b$B-e-f-g\x1b(B", "iso-2022-jp")
