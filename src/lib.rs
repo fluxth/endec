@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use pyo3::{
     exceptions::{PyLookupError, PyValueError},
     prelude::*,
@@ -32,20 +34,49 @@ fn encode(py: Python, input_str: &str, encoding: &str, errors: &str) -> PyResult
 }
 
 #[pyfunction]
-#[pyo3(signature = (input_bytes, /, encoding = "utf-8", errors = "strict"))]
+#[pyo3(signature = (input_bytes, /, encoding = "utf-8", errors = "strict", bom = "evaluate"))]
 fn decode<'py>(
     py: Python<'py>,
     input_bytes: &'py [u8],
     encoding: &'py str,
     errors: &'py str,
+    bom: &'py str,
 ) -> PyResult<&'py PyString> {
     let codec = get_codec(encoding)?;
 
-    let out = match errors {
-        "strict" => codec
-            .decode_without_bom_handling_and_without_replacement(input_bytes)
-            .ok_or(PyValueError::new_err("Cannot decode"))?,
+    let decode = || -> PyResult<(Cow<'py, str>, bool)> {
+        match bom {
+            "evaluate" => {
+                let (out, _, has_replaced) = codec.decode(input_bytes);
+                Ok((out, has_replaced))
+            }
+            "strip" => Ok(codec.decode_with_bom_removal(input_bytes)),
+            "replace" => Ok(codec.decode_without_bom_handling(input_bytes)),
+            "ignore" => {
+                let out = codec
+                    .decode_without_bom_handling_and_without_replacement(input_bytes)
+                    .ok_or(PyValueError::new_err("Cannot decode"))?;
 
+                Ok((out, false))
+            }
+            _ => Err(PyLookupError::new_err(format!(
+                "unknown byte-order mark handler name: {}",
+                bom
+            ))),
+        }
+    };
+
+    let out = match errors {
+        "strict" => {
+            let (out, has_replaced) = decode()?;
+
+            if has_replaced {
+                return Err(PyValueError::new_err("has replaced characters"));
+            }
+
+            out
+        }
+        "replace" => decode()?.0,
         _ => {
             return Err(PyLookupError::new_err(format!(
                 "unknown error handler name '{}'",

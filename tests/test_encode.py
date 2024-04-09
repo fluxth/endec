@@ -27,7 +27,11 @@ def test_encode_errors_xmlcharrefreplace():
 
 def test_encode_errors_unknown():
     with pytest.raises(LookupError):
-        endec.encode("これはasciiではありません", "ascii", "unknown")
+        endec.encode(
+            "これはasciiではありません", "ascii", "unknown"  # type: ignore [reportArgumentType]
+        )
 
     # python stdlib does not raise LookupError unless we have an error
-    endec.encode("unknown_errors_param", "ascii", "unknown")
+    endec.encode(
+        "unknown_errors_param", "ascii", "unknown"  # type: ignore [reportArgumentType]
+    )
