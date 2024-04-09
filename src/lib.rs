@@ -1,7 +1,7 @@
 use std::borrow::Cow;
 
 use pyo3::{
-    exceptions::{PyLookupError, PyValueError},
+    exceptions::PyLookupError,
     prelude::*,
     types::{PyBytes, PyString},
 };
@@ -52,7 +52,7 @@ fn decode<'py>(
 ) -> PyResult<&'py PyString> {
     let codec = get_codec(encoding)?;
 
-    let mut evaluated_encoding = encoding;
+    let mut evaluated_encoding = codec.name();
 
     let mut decode = || -> PyResult<(Cow<'py, str>, bool)> {
         match bom {
@@ -62,16 +62,20 @@ fn decode<'py>(
                 Ok((out, has_replaced))
             }
             "strip" => Ok(codec.decode_with_bom_removal(input_bytes)),
-            "replace" => Ok(codec.decode_without_bom_handling(input_bytes)),
             "ignore" => {
-                let out = codec
-                    .decode_without_bom_handling_and_without_replacement(input_bytes)
-                    .ok_or(exceptions::DecodeError::new_err((
-                        evaluated_encoding.to_owned(),
-                        input_bytes.to_vec(),
-                    )))?;
+                if errors == "strict" {
+                    let out = codec
+                        .decode_without_bom_handling_and_without_replacement(input_bytes)
+                        .ok_or(exceptions::DecodeError::new_err((
+                            evaluated_encoding.to_owned(),
+                            input_bytes.to_vec(),
+                        )))?;
 
-                Ok((out, false))
+                    Ok((out, false))
+                } else {
+                    // replace
+                    Ok(codec.decode_without_bom_handling(input_bytes))
+                }
             }
             _ => Err(PyLookupError::new_err(format!(
                 "unknown byte-order mark handler name: {}",

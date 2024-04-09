@@ -2,7 +2,7 @@ from typing import Literal
 
 EncodeErrorHandler = Literal["strict", "xmlcharrefreplace"]
 DecodeErrorHandler = Literal["strict", "replace"]
-BomHandler = Literal["evaluate", "strip", "replace", "ignore"]
+BomHandler = Literal["evaluate", "strip", "ignore"]
 
 def encode(
     input_str: str,
