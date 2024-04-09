@@ -17,7 +17,7 @@ Requires Python 3.8+
 $ pip install endec
 ```
 
-**NOTE: This project is in a pre-release state, please do not use it in production workloads.**
+**NOTE: This project is in a pre-release state.**
 
 ## Examples
 
@@ -49,6 +49,25 @@ assert iso2022jp_str == "㊤㊥㊦"
 
 b"\x1b$B-e-f-g\x1b(B".decode("iso-2022-jp")  # Standard Library `decode`
 # UnicodeDecodeError: 'iso2022_jp' codec can't decode bytes in position 3-4: illegal multibyte sequence
+```
+
+### Error Handling
+
+```python
+import endec
+from endec.exceptions import EncodeError, DecodeError
+
+try:
+    invalid_encode = endec.encode("漢字", "ascii")
+except EncodeError as exc:
+    # endec.exceptions.EncodeError: encoding with 'windows-1252' codec failed
+    raise exc
+
+try:
+    invalid_decode = endec.decode(b"\x42\xff\x42", "iso-2022-jp")
+except DecodeError as exc:
+    # endec.exceptions.DecodeError: decoding with 'ISO-2022-JP' codec failed
+    raise exc
 ```
 
 ### Codecs
