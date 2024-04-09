@@ -1,6 +1,7 @@
 import pytest
 
 import endec
+from endec.exceptions import EncodeError
 
 
 def test_encode_utf8():
@@ -9,7 +10,7 @@ def test_encode_utf8():
 
 
 def test_encode_errors_strict():
-    with pytest.raises(ValueError):  # FIXME: UnicodeEncodeError
+    with pytest.raises(EncodeError):
         endec.encode("こんにちは", "ascii", "strict")
 
     assert (

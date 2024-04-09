@@ -1,6 +1,7 @@
 import pytest
 
 import endec
+from endec.exceptions import DecodeError
 
 
 def test_decode_utf8():
@@ -8,8 +9,8 @@ def test_decode_utf8():
     assert endec.decode(b"utf8_bytes", "utf-8") == "utf8_bytes"
 
 
-def test_encode_errors_strict():
-    with pytest.raises(ValueError):  # FIXME: UnicodeDecodeError
+def test_decode_errors_strict():
+    with pytest.raises(DecodeError):
         endec.decode(b"\x00\x42\x69\xff", "utf-8", "strict")
 
     assert (

@@ -6,6 +6,11 @@ use pyo3::{
     types::{PyBytes, PyString},
 };
 
+mod exceptions {
+    pyo3::import_exception!(endec.exceptions, EncodeError);
+    pyo3::import_exception!(endec.exceptions, DecodeError);
+}
+
 fn get_codec(name: &str) -> PyResult<&'static encoding_rs::Encoding> {
     encoding_rs::Encoding::for_label(name.as_bytes()).ok_or(PyLookupError::new_err(format!(
         "unknown encoding: {}",
@@ -16,7 +21,7 @@ fn get_codec(name: &str) -> PyResult<&'static encoding_rs::Encoding> {
 #[pyfunction]
 #[pyo3(signature = (input_str, /, encoding = "utf-8", errors = "strict"))]
 fn encode(py: Python, input_str: &str, encoding: &str, errors: &str) -> PyResult<PyObject> {
-    let (out, _, has_unmappable) = get_codec(encoding)?.encode(input_str);
+    let (out, used_encoding, has_unmappable) = get_codec(encoding)?.encode(input_str);
     let convert_to_pybytes = || PyBytes::new(py, &out).into();
 
     if !has_unmappable {
@@ -24,7 +29,10 @@ fn encode(py: Python, input_str: &str, encoding: &str, errors: &str) -> PyResult
     }
 
     match errors {
-        "strict" => Err(PyValueError::new_err("Cannot encode")),
+        "strict" => Err(exceptions::EncodeError::new_err((
+            used_encoding.name().to_owned(),
+            input_str.to_owned(),
+        ))),
         "xmlcharrefreplace" => Ok(convert_to_pybytes()),
         _ => Err(PyLookupError::new_err(format!(
             "unknown error handler name '{}'",
@@ -44,10 +52,13 @@ fn decode<'py>(
 ) -> PyResult<&'py PyString> {
     let codec = get_codec(encoding)?;
 
-    let decode = || -> PyResult<(Cow<'py, str>, bool)> {
+    let mut evaluated_encoding = encoding;
+
+    let mut decode = || -> PyResult<(Cow<'py, str>, bool)> {
         match bom {
             "evaluate" => {
-                let (out, _, has_replaced) = codec.decode(input_bytes);
+                let (out, used_encoding, has_replaced) = codec.decode(input_bytes);
+                evaluated_encoding = used_encoding.name();
                 Ok((out, has_replaced))
             }
             "strip" => Ok(codec.decode_with_bom_removal(input_bytes)),
@@ -55,7 +66,10 @@ fn decode<'py>(
             "ignore" => {
                 let out = codec
                     .decode_without_bom_handling_and_without_replacement(input_bytes)
-                    .ok_or(PyValueError::new_err("Cannot decode"))?;
+                    .ok_or(exceptions::DecodeError::new_err((
+                        evaluated_encoding.to_owned(),
+                        input_bytes.to_vec(),
+                    )))?;
 
                 Ok((out, false))
             }
@@ -71,7 +85,12 @@ fn decode<'py>(
             let (out, has_replaced) = decode()?;
 
             if has_replaced {
-                return Err(PyValueError::new_err("has replaced characters"));
+                // has replaced characters but strict mode was used
+                // TODO add reason in exception
+                return Err(exceptions::DecodeError::new_err((
+                    evaluated_encoding.to_owned(),
+                    input_bytes.to_owned(),
+                )));
             }
 
             out
