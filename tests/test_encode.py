@@ -1,6 +1,7 @@
 import pytest
 
 import endec
+from endec.exceptions import EncodeError
 
 
 def test_encode_utf8():
@@ -9,7 +10,7 @@ def test_encode_utf8():
 
 
 def test_encode_errors_strict():
-    with pytest.raises(ValueError):  # FIXME: UnicodeEncodeError
+    with pytest.raises(EncodeError):
         endec.encode("こんにちは", "ascii", "strict")
 
     assert (
@@ -27,7 +28,11 @@ def test_encode_errors_xmlcharrefreplace():
 
 def test_encode_errors_unknown():
     with pytest.raises(LookupError):
-        endec.encode("これはasciiではありません", "ascii", "unknown")
+        endec.encode(
+            "これはasciiではありません", "ascii", "unknown"  # type: ignore [reportArgumentType]
+        )
 
     # python stdlib does not raise LookupError unless we have an error
-    endec.encode("unknown_errors_param", "ascii", "unknown")
+    endec.encode(
+        "unknown_errors_param", "ascii", "unknown"  # type: ignore [reportArgumentType]
+    )
