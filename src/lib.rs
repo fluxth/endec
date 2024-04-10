@@ -23,7 +23,7 @@ fn get_codec(name: &str) -> PyResult<&'static encoding_rs::Encoding> {
 #[pyo3(signature = (input_str, /, encoding = "utf-8", errors = "strict"))]
 fn encode(py: Python, input_str: &str, encoding: &str, errors: &str) -> PyResult<PyObject> {
     let (out, used_encoding, has_unmappable) = get_codec(encoding)?.encode(input_str);
-    let convert_to_pybytes = || PyBytes::new(py, &out).into();
+    let convert_to_pybytes = || PyBytes::new_bound(py, &out).into();
 
     if !has_unmappable {
         return Ok(convert_to_pybytes());
@@ -50,7 +50,7 @@ fn decode<'py>(
     encoding: &'py str,
     errors: &'py str,
     bom: &'py str,
-) -> PyResult<&'py PyString> {
+) -> PyResult<Bound<'py, PyString>> {
     let codec = get_codec(encoding)?;
 
     let mut evaluated_encoding = codec.name();
@@ -121,11 +121,11 @@ fn decode<'py>(
         }
     };
 
-    Ok(PyString::new(py, out.as_ref()))
+    Ok(PyString::new_bound(py, out.as_ref()))
 }
 
 #[pymodule]
-fn endec(_py: Python, module: &PyModule) -> PyResult<()> {
+fn endec(_py: Python, module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_function(wrap_pyfunction!(encode, module)?)?;
     module.add_function(wrap_pyfunction!(decode, module)?)?;
     Ok(())
