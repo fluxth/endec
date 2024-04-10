@@ -1,5 +1,6 @@
 use std::borrow::Cow;
 
+use encoding_rs::{UTF_16BE, UTF_16LE, UTF_8};
 use pyo3::{
     exceptions::PyLookupError,
     prelude::*,
@@ -57,6 +58,18 @@ fn decode<'py>(
     let mut decode = || -> PyResult<(Cow<'py, str>, bool)> {
         match bom {
             "evaluate" => {
+                let (out, used_encoding, has_replaced) =
+                    if codec == UTF_8 || codec == UTF_16BE || codec == UTF_16LE {
+                        codec.decode(input_bytes)
+                    } else {
+                        let (out, has_replaced) = codec.decode_with_bom_removal(input_bytes);
+                        (out, codec, has_replaced)
+                    };
+
+                evaluated_encoding = used_encoding.name();
+                Ok((out, has_replaced))
+            }
+            "evaluateall" => {
                 let (out, used_encoding, has_replaced) = codec.decode(input_bytes);
                 evaluated_encoding = used_encoding.name();
                 Ok((out, has_replaced))
