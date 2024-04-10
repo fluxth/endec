@@ -21,6 +21,10 @@ $ pip install endec
 
 ## Examples
 
+### Codecs
+
+Please refer to [WHATWG Web Encoding Standard](https://encoding.spec.whatwg.org/#concept-encoding-get) for available codecs.
+
 ### Encode
 
 ```python
@@ -69,10 +73,6 @@ except DecodeError as exc:
     # endec.exceptions.DecodeError: decoding with 'ISO-2022-JP' codec failed
     raise exc
 ```
-
-### Codecs
-
-Please refer to [WHATWG Web Encoding Standard](https://encoding.spec.whatwg.org/#concept-encoding-get) for available codecs.
 
 ## License
 
