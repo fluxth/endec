@@ -3,12 +3,12 @@
   "extends": [
     "config:recommended",
     "helpers:pinGitHubActionDigests",
-    ":maintainLockFilesMonthly"
+    ":maintainLockFilesMonthly",
+    ":pinVersions",
+    "github>Turbo87/renovate-config//rust/updateToolchain"
   ],
-
   "timezone": "Asia/Tokyo",
   "reviewers": ["fluxth"],
-
   "packageRules": [
     {
       "description": "Pin Cargo packages",
