@@ -43,7 +43,7 @@ fn encode(py: Python, input_str: &str, encoding: &str, errors: &str) -> PyResult
 }
 
 #[pyfunction]
-#[pyo3(signature = (input_bytes, /, encoding = "utf-8", errors = "strict", bom = "evaluate"))]
+#[pyo3(signature = (input_bytes, /, encoding = "utf-8", errors = "strict", *, bom = "evaluate"))]
 fn decode<'py>(
     py: Python<'py>,
     input_bytes: &'py [u8],

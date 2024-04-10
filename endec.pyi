@@ -15,5 +15,6 @@ def decode(
     /,
     encoding: str = "utf-8",
     errors: DecodeErrorHandler = "strict",
+    *,
     bom: DecodeBomHandler = "evaluate",
 ) -> str: ...

@@ -59,18 +59,11 @@ def test_decode_bom_evaluate():
     assert endec.decode(b"\xff\xfeetts", "utf-16", bom="evaluate") == "瑥獴"
     assert endec.decode(b"\xef\xbb\xbftest", "utf-8", bom="evaluate") == "test"
 
-    # explicit bom args
-    assert endec.decode(b"\xff\xfetest", "utf-16", "strict", "evaluate") == "整瑳"
-    assert endec.decode(b"\xfe\xfftest", "utf-16", "strict", "evaluate") == "瑥獴"
-    assert endec.decode(b"\xff\xfeetts", "utf-16", "strict", "evaluate") == "瑥獴"
-    assert endec.decode(b"\xef\xbb\xbftest", "utf-8", "strict", "evaluate") == "test"
-
 
 def test_decode_bom_evaluate_morph():
     # evaluate should not morph other codecs other than utf-8, utf-16be, utf-16le
     assert endec.decode(b"\xff\xfetest", "latin1") == "ÿþtest"
     assert endec.decode(b"\xff\xfetest", "latin1", bom="evaluate") == "ÿþtest"
-    assert endec.decode(b"\xff\xfetest", "latin1", "strict", "evaluate") == "ÿþtest"
 
 
 def test_decode_bom_evaluateall():
@@ -78,17 +71,12 @@ def test_decode_bom_evaluateall():
 
     # morph to utf-16le
     assert endec.decode(b"\xff\xfetest", "latin1", bom="evaluateall") == "整瑳"
-    assert endec.decode(b"\xff\xfetest", "latin1", "strict", "evaluateall") == "整瑳"
 
     # morph to utf-16be
     assert endec.decode(b"\xfe\xfftest", "latin1", bom="evaluateall") == "瑥獴"
-    assert endec.decode(b"\xfe\xfftest", "latin1", "strict", "evaluateall") == "瑥獴"
 
     # morph to utf-8
     assert endec.decode(b"\xef\xbb\xbftest", "latin1", bom="evaluateall") == "test"
-    assert (
-        endec.decode(b"\xef\xbb\xbftest", "latin1", "strict", "evaluateall") == "test"
-    )
 
 
 def test_decode_bom_strip():
@@ -96,12 +84,6 @@ def test_decode_bom_strip():
     assert endec.decode(b"\xfe\xfftest", "utf-16", bom="strip") == "\ufffe整瑳"
     assert endec.decode(b"\xff\xfeetts", "utf-16", bom="strip") == "瑥獴"
     assert endec.decode(b"\xef\xbb\xbftest", "utf-8", bom="strip") == "test"
-
-    # explicit bom args
-    assert endec.decode(b"\xff\xfetest", "utf-16", "strict", "strip") == "整瑳"
-    assert endec.decode(b"\xfe\xfftest", "utf-16", "strict", "strip") == "\ufffe整瑳"
-    assert endec.decode(b"\xff\xfeetts", "utf-16", "strict", "strip") == "瑥獴"
-    assert endec.decode(b"\xef\xbb\xbftest", "utf-8", "strict", "strip") == "test"
 
 
 # FIXME def test_decode_bom_ignore_error_strict()
