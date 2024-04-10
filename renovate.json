@@ -11,9 +11,9 @@
   "reviewers": ["fluxth"],
   "packageRules": [
     {
-      "description": "Pin Cargo packages",
-      "matchManagers": ["cargo"],
-      "rangeStrategy": "pin"
+      "description": "Don't pin pyproject.toml",
+      "matchFileNames": ["pyproject.toml"],
+      "rangeStrategy": "auto"
     },
     {
       "description": "Auto-merge GitHub Actions patch and digest updates",
