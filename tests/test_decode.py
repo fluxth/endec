@@ -33,6 +33,9 @@ def test_decode_errors_strict():
     )
 
 
+# TODO def test_decode_errors_replace()
+
+
 def test_decode_errors_unknown():
     with pytest.raises(LookupError):
         endec.decode(
@@ -86,5 +89,45 @@ def test_decode_bom_strip():
     assert endec.decode(b"\xef\xbb\xbftest", "utf-8", bom="strip") == "test"
 
 
-# FIXME def test_decode_bom_ignore_error_strict()
+def test_decode_bom_ignore_error_strict():
+    # errors should default to strict
+    assert endec.decode(b"\xff\xfetest", "utf-16", bom="ignore") == "\ufeff整瑳"
+    assert endec.decode(b"\xfe\xfftest", "utf-16", bom="ignore") == "\ufffe整瑳"
+    assert endec.decode(b"\xff\xfeetts", "utf-16", bom="ignore") == "\ufeff瑥獴"
+    assert endec.decode(b"\xef\xbb\xbftest", "utf-8", bom="ignore") == "\ufefftest"
+
+    # explicit errors args
+    assert (
+        endec.decode(b"\xff\xfetest", "utf-16", "strict", bom="ignore") == "\ufeff整瑳"
+    )
+    assert (
+        endec.decode(b"\xfe\xfftest", "utf-16", "strict", bom="ignore") == "\ufffe整瑳"
+    )
+    assert (
+        endec.decode(b"\xff\xfeetts", "utf-16", "strict", bom="ignore") == "\ufeff瑥獴"
+    )
+    assert (
+        endec.decode(b"\xef\xbb\xbftest", "utf-8", "strict", bom="ignore")
+        == "\ufefftest"
+    )
+
+    # explicit errors kwargs
+    assert (
+        endec.decode(b"\xff\xfetest", "utf-16", errors="strict", bom="ignore")
+        == "\ufeff整瑳"
+    )
+    assert (
+        endec.decode(b"\xfe\xfftest", "utf-16", errors="strict", bom="ignore")
+        == "\ufffe整瑳"
+    )
+    assert (
+        endec.decode(b"\xff\xfeetts", "utf-16", errors="strict", bom="ignore")
+        == "\ufeff瑥獴"
+    )
+    assert (
+        endec.decode(b"\xef\xbb\xbftest", "utf-8", errors="strict", bom="ignore")
+        == "\ufefftest"
+    )
+
+
 # FIXME def test_decode_bom_ignore_error_replace()
