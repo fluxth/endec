@@ -33,7 +33,7 @@ pub(crate) fn decode<'b>(
         DecodeBOMHandler::EvaluateAll => Some(decode_bom_evaluate_all(input_bytes, encoding)),
         DecodeBOMHandler::Strip => Some(decode_bom_strip(input_bytes, encoding)),
         DecodeBOMHandler::Ignore => decode_bom_ignore(input_bytes, encoding, &error_handler),
-        DecodeBOMHandler::InvalidHandler => Err(DecodeError::InvalidBOMHandler)?,
+        DecodeBOMHandler::InvalidHandler => return Err(DecodeError::InvalidBOMHandler),
     };
 
     match (decoder_output, error_handler) {
@@ -117,13 +117,13 @@ fn decode_bom_strip<'b>(input_bytes: &'b [u8], encoding: &'static Encoding) -> D
     }
 }
 
-fn decode_bom_ignore<'a, 'b>(
+fn decode_bom_ignore<'b>(
     input_bytes: &'b [u8],
     encoding: &'static Encoding,
-    error_handler: &'a DecodeErrorHandler,
+    error_handler: &'_ DecodeErrorHandler,
 ) -> Option<DecoderOutput<'b>> {
-    match error_handler {
-        &DecodeErrorHandler::Replace => {
+    match *error_handler {
+        DecodeErrorHandler::Replace => {
             let (output, has_replaced) = encoding.decode_without_bom_handling(input_bytes);
             Some(DecoderOutput {
                 output,
@@ -131,7 +131,7 @@ fn decode_bom_ignore<'a, 'b>(
                 has_replaced,
             })
         }
-        &DecodeErrorHandler::Strict => {
+        DecodeErrorHandler::Strict => {
             let output =
                 encoding.decode_without_bom_handling_and_without_replacement(input_bytes)?;
             Some(DecoderOutput {
@@ -140,6 +140,6 @@ fn decode_bom_ignore<'a, 'b>(
                 has_replaced: false,
             })
         }
-        &DecodeErrorHandler::InvalidHandler => None,
+        DecodeErrorHandler::InvalidHandler => None,
     }
 }

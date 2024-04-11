@@ -36,7 +36,7 @@ pub(crate) fn encode<'py>(
         _ => EncodeErrorHandler::InvalidHandler,
     };
 
-    match crate::encode::encode(input_str, &codec, error_handler) {
+    match crate::encode::encode(input_str, codec, error_handler) {
         Ok(encoded_bytes) => Ok(PyBytes::new_bound(py, &encoded_bytes)),
         Err(error) => match error {
             EncodeError::InvalidErrorHandler => {
