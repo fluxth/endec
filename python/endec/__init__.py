@@ -1,4 +1,4 @@
-from .endec import encode, decode
+from ._endec import encode, decode
 
-__doc__ = endec.__doc__
+__doc__ = _endec.__doc__
 __all__ = ["encode", "decode"]
