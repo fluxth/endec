@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use encoding_rs::{UTF_16BE, UTF_16LE, UTF_8};
+use encoding_rs::{UTF_16BE, UTF_16LE};
 use pyo3::exceptions::PyLookupError;
 use pyo3::prelude::*;
 use pyo3::types::PyString;
@@ -24,13 +24,13 @@ pub(crate) fn decode<'py>(
     let mut decode = || -> PyResult<(Cow<'py, str>, bool)> {
         match bom {
             "evaluate" => {
-                let (out, used_encoding, has_replaced) =
-                    if codec == UTF_8 || codec == UTF_16BE || codec == UTF_16LE {
-                        codec.decode(input_bytes)
-                    } else {
-                        let (out, has_replaced) = codec.decode_with_bom_removal(input_bytes);
-                        (out, codec, has_replaced)
-                    };
+                // only allow morphing for utf-16 in default evaluate mode
+                let (out, used_encoding, has_replaced) = if codec == UTF_16BE || codec == UTF_16LE {
+                    codec.decode(input_bytes)
+                } else {
+                    let (out, has_replaced) = codec.decode_with_bom_removal(input_bytes);
+                    (out, codec, has_replaced)
+                };
 
                 evaluated_encoding = used_encoding.name();
                 Ok((out, has_replaced))

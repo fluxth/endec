@@ -64,13 +64,23 @@ def test_decode_bom_evaluate():
 
 
 def test_decode_bom_evaluate_morph():
-    # evaluate should not morph other codecs other than utf-8, utf-16be, utf-16le
+    # evaluate should not morph other codecs other than utf-16be, utf-16le
+
+    # bom should default to evaluate
     assert endec.decode(b"\xff\xfetest", "latin1") == "ÿþtest"
+
+    with pytest.raises(DecodeError):
+        endec.decode(b"\xfe\xfftest", "utf-8")
+
+    # explicit bom kwargs
     assert endec.decode(b"\xff\xfetest", "latin1", bom="evaluate") == "ÿþtest"
+
+    with pytest.raises(DecodeError):
+        endec.decode(b"\xfe\xfftest", "utf-8", bom="evaluate")
 
 
 def test_decode_bom_evaluateall():
-    # evaluateall should morph other codecs other than utf-8, utf-16be, utf-16le
+    # evaluateall should morph other codecs other than utf-16be, utf-16le
 
     # morph to utf-16le
     assert endec.decode(b"\xff\xfetest", "latin1", bom="evaluateall") == "整瑳"
