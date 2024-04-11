@@ -39,14 +39,19 @@ def test_decode_errors_strict():
 def test_decode_errors_unknown():
     with pytest.raises(LookupError):
         endec.decode(
-            b"\x42\x42", "ascii", "unknown"  # type: ignore [reportArgumentType]
+            b"\x00\x42\x69\xff", "utf-8", "unknown"  # type: ignore [reportArgumentType]
+        )
+        endec.decode(
+            b"\x00\x42\x69\xff", "utf-8", errors="unknown"  # type: ignore [reportArgumentType]
         )
 
-    # FIXME make this pass
     # python stdlib does not raise LookupError unless we have an error
-    # endec.decode(
-    #    b"unknown_errors_param", "ascii", "unknown"  # type: ignore [reportArgumentType]
-    # )
+    endec.decode(
+        b"unknown_errors_param", "utf-8", "unknown"  # type: ignore [reportArgumentType]
+    )
+    endec.decode(
+        b"unknown_errors_param", "utf-8", errors="unknown"  # type: ignore [reportArgumentType]
+    )
 
 
 def test_decode_bom_evaluate():
