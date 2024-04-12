@@ -5,7 +5,7 @@
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fluxth/endec/build.yml)
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fluxth/endec/test.yml?label=tests)
 
-Web-compatible **en**coding and **dec**oding library.
+Web-compatible **en**coding and **dec**oding library
 
 **endec** uses [`encoding_rs`](https://github.com/hsivonen/encoding_rs) (which powers Firefox) under the hood.
 
@@ -16,8 +16,6 @@ Requires Python 3.8+
 ```
 $ pip install endec
 ```
-
-**NOTE: This project is in a pre-release state.**
 
 ## Examples
 
