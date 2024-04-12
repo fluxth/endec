@@ -11,10 +11,6 @@ def test_encode_utf8():
 
 
 def test_encode_errors_strict():
-    with pytest.raises(EncodeError):
-        endec.encode("こんにちは", "ascii", "strict")
-        endec.encode("こんにちは", "ascii", errors="strict")
-
     assert (
         endec.encode("こんにちは", "utf-8", "strict")
         == b"\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf"
@@ -23,6 +19,13 @@ def test_encode_errors_strict():
         endec.encode("こんにちは", "utf-8", errors="strict")
         == b"\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf"
     )
+
+
+def test_encode_errors_strict_failure():
+    with pytest.raises(EncodeError):
+        endec.encode("こんにちは", "ascii", "strict")
+    with pytest.raises(EncodeError):
+        endec.encode("こんにちは", "ascii", errors="strict")
 
 
 def test_encode_errors_xmlcharrefreplace():
@@ -37,14 +40,6 @@ def test_encode_errors_xmlcharrefreplace():
 
 
 def test_encode_errors_unknown():
-    with pytest.raises(LookupError):
-        endec.encode(
-            "これはasciiではありません", "ascii", "unknown"  # type: ignore [reportArgumentType]
-        )
-        endec.encode(
-            "これはasciiではありません", "ascii", errors="unknown"  # type: ignore [reportArgumentType]
-        )
-
     # python stdlib does not raise LookupError unless we have an error
     endec.encode(
         "unknown_errors_param", "ascii", "unknown"  # type: ignore [reportArgumentType]
@@ -52,3 +47,14 @@ def test_encode_errors_unknown():
     endec.encode(
         "unknown_errors_param", "ascii", errors="unknown"  # type: ignore [reportArgumentType]
     )
+
+
+def test_encode_errors_unknown_failure():
+    with pytest.raises(LookupError):
+        endec.encode(
+            "これはasciiではありません", "ascii", "unknown"  # type: ignore [reportArgumentType]
+        )
+    with pytest.raises(LookupError):
+        endec.encode(
+            "これはasciiではありません", "ascii", errors="unknown"  # type: ignore [reportArgumentType]
+        )
