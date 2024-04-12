@@ -1,10 +1,10 @@
 [build-system]
-requires = ["maturin>=1.2,<2.0"]
+requires = ["maturin>=1.5,<2.0"]
 build-backend = "maturin"
 
 [project]
 name = "endec"
-version = "0.1.0b3"
+version = "0.1.0"
 description = "Web-compatible encoding and decoding library"
 readme = "README.md"
 license = { file = "LICENSE" }
