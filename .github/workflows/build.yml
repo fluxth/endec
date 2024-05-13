@@ -42,7 +42,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Build wheels
-        uses: PyO3/maturin-action@52b28abb0c6729beb388babfc348bf6ff5aaff31 # v1.42.2
+        uses: PyO3/maturin-action@6c20e5e8673d2470a20e14adf067b68db6fee644 # v1.43.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
@@ -70,7 +70,7 @@ jobs:
           python-version: '3.10'
           architecture: ${{ matrix.platform.target }}
       - name: Build wheels
-        uses: PyO3/maturin-action@52b28abb0c6729beb388babfc348bf6ff5aaff31 # v1.42.2
+        uses: PyO3/maturin-action@6c20e5e8673d2470a20e14adf067b68db6fee644 # v1.43.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
@@ -96,7 +96,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Build wheels
-        uses: PyO3/maturin-action@52b28abb0c6729beb388babfc348bf6ff5aaff31 # v1.42.2
+        uses: PyO3/maturin-action@6c20e5e8673d2470a20e14adf067b68db6fee644 # v1.43.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
@@ -112,7 +112,7 @@ jobs:
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
       - name: Build sdist
-        uses: PyO3/maturin-action@52b28abb0c6729beb388babfc348bf6ff5aaff31 # v1.42.2
+        uses: PyO3/maturin-action@6c20e5e8673d2470a20e14adf067b68db6fee644 # v1.43.0
         with:
           command: sdist
           args: --out dist
@@ -130,7 +130,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
       - name: Publish to PyPI
-        uses: PyO3/maturin-action@52b28abb0c6729beb388babfc348bf6ff5aaff31 # v1.42.2
+        uses: PyO3/maturin-action@6c20e5e8673d2470a20e14adf067b68db6fee644 # v1.43.0
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         with:
