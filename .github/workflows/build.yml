@@ -18,6 +18,12 @@ on:
 permissions:
   contents: read
 
+env:
+  UNIX_PYTHON_BUILD_VERSIONS: 3.13 3.12 3.11 3.10 3.9 3.8 pypy3.10 pypy3.9 pypy3.8
+  # GitHub Actions does not yet have 3.13 installed on their Windows runners
+  # PyPy is not supported on 32-bit Windows
+  WINDOWS_PYTHON_BUILD_VERSIONS: 3.12 3.11 3.10 3.9 3.8
+
 jobs:
   linux:
     runs-on: ${{ matrix.platform.runner }}
@@ -45,7 +51,7 @@ jobs:
         uses: PyO3/maturin-action@2c5c1560848aaa364c3545136054932db5fa27b7 # v1.44.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
@@ -76,7 +82,7 @@ jobs:
         uses: PyO3/maturin-action@2c5c1560848aaa364c3545136054932db5fa27b7 # v1.44.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
           manylinux: musllinux_1_2
       - name: Upload wheels
@@ -104,7 +110,7 @@ jobs:
         uses: PyO3/maturin-action@2c5c1560848aaa364c3545136054932db5fa27b7 # v1.44.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist --interpreter ${{ env.WINDOWS_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
@@ -130,7 +136,7 @@ jobs:
         uses: PyO3/maturin-action@2c5c1560848aaa364c3545136054932db5fa27b7 # v1.44.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
