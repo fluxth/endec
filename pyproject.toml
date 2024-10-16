@@ -29,7 +29,9 @@ classifiers = [
 requires-python = ">=3.8"
 
 [project.urls]
-Repository = "https://github.com/fluxth/endec"
+Homepage = "https://github.com/fluxth/endec"
+Source = "https://github.com/fluxth/endec"
+Changelog = "https://github.com/fluxth/endec/releases"
 
 [tool.maturin]
 module-name = "endec._endec"
