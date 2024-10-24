@@ -8,5 +8,5 @@ name = "_endec"
 crate-type = ["cdylib"]
 
 [dependencies]
-encoding_rs = "=0.8.34"
+encoding_rs = "=0.8.35"
 pyo3 = "=0.22.5"
