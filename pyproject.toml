@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "endec"
-version = "0.2.1"
+version = "0.2.2"
 description = "Web-compatible encoding and decoding library"
 readme = "README.md"
 license = { file = "LICENSE" }
