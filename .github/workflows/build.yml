@@ -55,7 +55,7 @@ jobs:
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wheels-linux-${{ matrix.platform.target }}
           path: dist
@@ -86,7 +86,7 @@ jobs:
           sccache: 'true'
           manylinux: musllinux_1_2
       - name: Upload wheels
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wheels-musllinux-${{ matrix.platform.target }}
           path: dist
@@ -113,7 +113,7 @@ jobs:
           args: --release --out dist --interpreter ${{ env.WINDOWS_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wheels-windows-${{ matrix.platform.target }}
           path: dist
@@ -139,7 +139,7 @@ jobs:
           args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wheels-macos-${{ matrix.platform.target }}
           path: dist
@@ -154,7 +154,7 @@ jobs:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wheels-sdist
           path: dist
