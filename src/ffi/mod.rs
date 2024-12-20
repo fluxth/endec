@@ -37,7 +37,7 @@ pub(crate) fn encode<'py>(
     };
 
     match crate::encode::encode(input_str, codec, error_handler) {
-        Ok(encoded_bytes) => Ok(PyBytes::new_bound(py, &encoded_bytes)),
+        Ok(encoded_bytes) => Ok(PyBytes::new(py, &encoded_bytes)),
         Err(error) => match error {
             EncodeError::InvalidErrorHandler => {
                 Err(exceptions::error_handler_lookup_failed(errors))
@@ -76,7 +76,7 @@ pub(crate) fn decode<'py>(
     };
 
     match crate::decode::decode(input_bytes, codec, error_handler, bom_handler) {
-        Ok(decoded_string) => Ok(PyString::new_bound(py, &decoded_string)),
+        Ok(decoded_string) => Ok(PyString::new(py, &decoded_string)),
         Err(error) => match error {
             DecodeError::DecodeFailed { used_encoding } => {
                 Err(exceptions::decode_failed(used_encoding.name(), input_bytes))
