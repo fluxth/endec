@@ -43,18 +43,18 @@ jobs:
             target: ppc64le
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: 3.x
       - name: Build wheels
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: wheels-linux-${{ matrix.platform.target }}
           path: dist
@@ -74,18 +74,18 @@ jobs:
             target: armv7
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: 3.x
       - name: Build wheels
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
           manylinux: musllinux_1_2
       - name: Upload wheels
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: wheels-musllinux-${{ matrix.platform.target }}
           path: dist
@@ -101,19 +101,19 @@ jobs:
             target: x86
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: 3.x
           allow-prereleases: true
           architecture: ${{ matrix.platform.target }}
       - name: Build wheels
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --interpreter ${{ env.WINDOWS_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: wheels-windows-${{ matrix.platform.target }}
           path: dist
@@ -129,17 +129,17 @@ jobs:
             target: aarch64
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: 3.x
       - name: Build wheels
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --interpreter ${{ env.UNIX_PYTHON_BUILD_VERSIONS }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: wheels-macos-${{ matrix.platform.target }}
           path: dist
@@ -149,12 +149,12 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Build sdist
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         with:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: wheels-sdist
           path: dist
@@ -179,7 +179,7 @@ jobs:
           subject-path: 'wheels-*/*'
       - name: Publish to PyPI
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: PyO3/maturin-action@ea5bac0f1ccd0ab11c805e2b804bfcb65dac2eab # v1.45.0
+        uses: PyO3/maturin-action@5f8a1b3b0aad13193f46c9131f9b9e663def8ce5 # v1.46.0
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         with:
