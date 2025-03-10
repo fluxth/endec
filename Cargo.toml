@@ -1,7 +1,7 @@
 [package]
 name = "endec"
 version = "0.3.3"
-edition = "2021"
+edition = "2024"
 
 [lib]
 name = "_endec"
