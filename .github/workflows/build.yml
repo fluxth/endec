@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
-          python-version: 3.x
+          python-version: 3.13.2
       - name: Build wheels
         uses: PyO3/maturin-action@22fe573c6ed0c03ab9b84e631cbfa49bddf6e20e # v1.47.3
         with:
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
-          python-version: 3.x
+          python-version: 3.13.2
       - name: Build wheels
         uses: PyO3/maturin-action@22fe573c6ed0c03ab9b84e631cbfa49bddf6e20e # v1.47.3
         with:
@@ -103,7 +103,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
-          python-version: 3.x
+          python-version: 3.13.2
           architecture: ${{ matrix.platform.target }}
       - name: Build wheels
         uses: PyO3/maturin-action@22fe573c6ed0c03ab9b84e631cbfa49bddf6e20e # v1.47.3
@@ -130,7 +130,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
-          python-version: 3.x
+          python-version: 3.13.2
       - name: Build wheels
         uses: PyO3/maturin-action@22fe573c6ed0c03ab9b84e631cbfa49bddf6e20e # v1.47.3
         with:
