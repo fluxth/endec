@@ -5,6 +5,7 @@
     "helpers:pinGitHubActionDigests",
     ":maintainLockFilesMonthly",
     ":pinVersions",
+    "customManagers:githubActionsVersions",
     "github>Turbo87/renovate-config//rust/updateToolchain"
   ],
   "timezone": "Asia/Tokyo",
