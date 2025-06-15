@@ -9,4 +9,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 encoding_rs = "=0.8.35"
-pyo3 = "=0.25.0"
+pyo3 = "=0.25.1"
