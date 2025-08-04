@@ -23,7 +23,7 @@ env:
   # PyPy is not supported on 32-bit Windows
   WINDOWS_PYTHON_BUILD_VERSIONS: 3.13 3.12 3.11 3.10 3.9
   # renovate: datasource=github-releases depName=PyO3/maturin
-  MATURIN_VERSION: v1.9.2
+  MATURIN_VERSION: v1.9.3
 
 jobs:
   linux:
