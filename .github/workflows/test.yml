@@ -15,7 +15,7 @@ jobs:
     runs-on: "${{ matrix.platform }}"
     strategy:
       matrix:
-        platform: ["ubuntu-latest", "windows-latest"]
+        platform: ["ubuntu-24.04", "windows-2025"]
         python-version: ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 
     steps:
