@@ -9,12 +9,29 @@ Web-compatible **en**coding and **dec**oding library
 
 **endec** uses [`encoding_rs`](https://github.com/hsivonen/encoding_rs) (which powers Firefox) under the hood.
 
+## Supported Python versions
+
+- CPython 3.8 or higher
+- PyPy 3.11 or higher
+
 ## Installation
 
-Requires Python 3.8+
+### Using [uv package manager](https://github.com/astral-sh/uv) (recommended)
 
+```bash
+uv add endec
 ```
-$ pip install endec
+
+### Using [Poetry package manager](https://github.com/python-poetry/poetry)
+
+```bash
+poetry add endec
+```
+
+### Using pip
+
+```bash
+pip install endec
 ```
 
 ## Examples
