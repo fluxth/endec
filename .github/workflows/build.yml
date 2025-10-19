@@ -29,8 +29,6 @@ env:
     3.9
     3.8
     pypy3.11
-    pypy3.10
-    pypy3.9
   WINDOWS_PYTHON_BUILD_VERSIONS: |
     3.13
     3.12
