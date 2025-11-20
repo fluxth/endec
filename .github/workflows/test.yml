@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         platform: ["ubuntu-24.04", "windows-2025", "macos-15"]
-        python-version: ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+        python-version: ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
