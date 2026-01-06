@@ -20,7 +20,7 @@ permissions:
 
 env:
   # renovate: datasource=github-releases depName=PyO3/maturin
-  MATURIN_VERSION: v1.11.0
+  MATURIN_VERSION: v1.11.2
   UNIX_PYTHON_BUILD_VERSIONS: |
     3.14
     3.13
