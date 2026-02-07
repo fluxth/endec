@@ -66,7 +66,7 @@ jobs:
       - run: |
           echo "MATURIN_INTERPRETER_VERSIONS=$UNIX_PYTHON_BUILD_VERSIONS" | xargs >> "$GITHUB_ENV"
       - name: Build wheels
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         with:
           maturin-version: ${{ env.MATURIN_VERSION }}
           target: ${{ matrix.platform.target }}
@@ -100,7 +100,7 @@ jobs:
       - run: |
           echo "MATURIN_INTERPRETER_VERSIONS=$UNIX_PYTHON_BUILD_VERSIONS" | xargs >> "$GITHUB_ENV"
       - name: Build wheels
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         with:
           maturin-version: ${{ env.MATURIN_VERSION }}
           target: ${{ matrix.platform.target }}
@@ -132,7 +132,7 @@ jobs:
           $pyVersions = ($env:WINDOWS_PYTHON_BUILD_VERSIONS -split '\r?\n' -join ' ').Trim()
           "MATURIN_INTERPRETER_VERSIONS=$pyVersions" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
       - name: Build wheels
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         with:
           maturin-version: ${{ env.MATURIN_VERSION }}
           target: ${{ matrix.platform.target }}
@@ -161,7 +161,7 @@ jobs:
       - run: |
           echo "MATURIN_INTERPRETER_VERSIONS=$UNIX_PYTHON_BUILD_VERSIONS" | xargs >> "$GITHUB_ENV"
       - name: Build wheels
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         with:
           maturin-version: ${{ env.MATURIN_VERSION }}
           target: ${{ matrix.platform.target }}
@@ -178,7 +178,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Build sdist
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         with:
           maturin-version: ${{ env.MATURIN_VERSION }}
           command: sdist
@@ -209,7 +209,7 @@ jobs:
           subject-path: 'wheels-*/*'
       - name: Publish to PyPI
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: PyO3/maturin-action@86b9d133d34bc1b40018696f782949dac11bd380 # v1.49.4
+        uses: PyO3/maturin-action@b1bd829e37fef14c63f19162034228a2f3dc1021 # v1.50.0
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         with:
