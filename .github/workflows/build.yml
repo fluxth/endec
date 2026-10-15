@@ -28,7 +28,6 @@ env:
     3.11
     3.10
     3.9
-    3.8
     pypy3.11
   WINDOWS_PYTHON_BUILD_VERSIONS: |
     3.14
@@ -37,7 +36,6 @@ env:
     3.11
     3.10
     3.9
-    3.8
   # PyPy on Windows is a pain to build, distribute them as sdist instead.
 
 jobs:

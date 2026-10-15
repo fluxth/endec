@@ -11,7 +11,7 @@ Web-compatible **en**coding and **dec**oding library
 
 ## Supported Python versions
 
-- CPython 3.8 or higher
+- CPython 3.9 or higher
 - PyPy 3.11 or higher
 
 ## Installation
